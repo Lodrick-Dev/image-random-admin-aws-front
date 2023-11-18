@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { IoChevronBackSharp } from "react-icons/io5";
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
 const PreviewImages = ({ imgsToPreview }) => {
@@ -45,7 +44,7 @@ const StyledPreviewImages = styled.div`
   justify-content: center;
   align-items: center;
   ul {
-    width: 100%;
+    width: 80%;
     /* background: blue; */
     display: flex;
     flex-direction: column;
@@ -55,7 +54,7 @@ const StyledPreviewImages = styled.div`
     position: relative;
   }
   ul > li {
-    width: 100%;
+    /* width: 50%; */
     text-decoration: none;
     list-style: none;
     display: flex;

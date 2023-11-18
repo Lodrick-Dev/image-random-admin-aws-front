@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PreviewImages from "../globale/PreviewImages";
-import AddImage from "./forms/AddImage";
+import AddImage from "./admin/forms/AddImage";
 import ImagesPublic from "../globale/ImagesPublic";
 import { FaHome } from "react-icons/fa";
 import { Dynamic } from "../context/DynamicContext";
+import ListImages from "./admin/ListImages";
 
 const Dashboard = () => {
   const [imageUploading, setImageUploading] = useState([]);
@@ -27,8 +28,10 @@ const Dashboard = () => {
         imageUploading={imageUploading}
         setImageUploading={setImageUploading}
         setImgsToPreview={setImgsToPreview}
+        imgsToPreview={imgsToPreview}
       />
       <ImagesPublic />
+      <ListImages />
     </StyledDashboard>
   );
 };
@@ -41,7 +44,7 @@ const StyledDashboard = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 150vh;
+  height: 170vh;
   h1 {
     position: absolute;
     left: 10px;

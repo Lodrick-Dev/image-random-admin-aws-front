@@ -4,11 +4,21 @@ import ButtonForm from "../../globale/ButtonForm";
 import { Dynamic } from "../../context/DynamicContext";
 
 const Connexion = () => {
+  const { navigation, setIdUser, setNotif } = Dynamic();
   const [mdpForget, setMdpForget] = useState(false);
-  const { navigation, setIdUser } = Dynamic();
+  const [showPass, setShowPass] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleConnexion = async (e) => {
     e.preventDefault();
-    setIdUser("dbbbj");
+    if (!email || !password)
+      return setNotif("Erreur : Bro les champs sont obligatoire");
+    alert(`Ton email ${email} et ton password ${password}`);
+
+    //firebase
+    return;
+    // return setNotif(" Lol tu dois te connecté bro");
+    // setIdUser("dbbbj");
     navigation("/dashboard");
   };
 
@@ -16,15 +26,27 @@ const Connexion = () => {
     e.preventDefault();
     alert("mot de passe oublié");
   };
+
+  //rendu
   return (
     <StyledConnexion
       onSubmit={(e) => {
         mdpForget ? handlePasswordForget(e) : handleConnexion(e);
       }}
+      $css={showPass}
     >
-      <input type="email" placeholder="Email" />
+      <strong onClick={() => setShowPass(!showPass)}>Voir le mdp</strong>
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
       {mdpForget ? undefined : (
-        <input type="password" placeholder="Mot de passe" />
+        <input
+          type={showPass ? "text" : "password"}
+          placeholder="Mot de passe"
+          onChange={(e) => setPassword(e.target.value)}
+        />
       )}
       <ButtonForm
         text={mdpForget ? "Initialisation du mot de passe" : "Connexion"}
@@ -57,5 +79,9 @@ const StyledConnexion = styled.form`
     margin: 5px 25px;
     cursor: pointer;
     color: red;
+  }
+  strong {
+    color: ${({ $css }) => ($css ? "red" : "white")};
+    cursor: pointer;
   }
 `;

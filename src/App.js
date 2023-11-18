@@ -4,8 +4,10 @@ import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./private/PrivateRoute";
 import Notification from "./globale/Notification";
+import { Dynamic } from "./context/DynamicContext";
 
 function App() {
+  const { notif } = Dynamic();
   return (
     <StyledApp className="App">
       <Routes>
@@ -19,7 +21,7 @@ function App() {
           }
         />
       </Routes>
-      <Notification />
+      {notif && <Notification />}
     </StyledApp>
   );
 }

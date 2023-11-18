@@ -1,15 +1,39 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import ButtonForm from "../../globale/ButtonForm";
+import ButtonForm from "../../../globale/ButtonForm";
 import { FaDownload } from "react-icons/fa";
 import Resizer from "react-image-file-resizer";
+import axios from "axios";
 
-const AddImage = ({ imageUploading, setImageUploading, setImgsToPreview }) => {
+const AddImage = ({
+  imageUploading,
+  setImageUploading,
+  setImgsToPreview,
+  imgsToPreview,
+}) => {
   const uploadingimgs = useRef();
   const handleAddImage = async (e) => {
     e.preventDefault();
-    alert("ZAdd img");
+    console.log(setImgsToPreview);
+    // if (imageUploading.length < 0) return alert("Aucune image selectionnée");
+
+    const data = new FormData();
+    data.append("imageaws", imageUploading[0]);
+    try {
+      await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}aws/upload/image`,
+        withCredentials: true,
+        data,
+      }).then((res) => {
+        console.log(res);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  //before send image
   const uploading = () => {
     uploadingimgs.current.click();
   };
@@ -52,6 +76,7 @@ const AddImage = ({ imageUploading, setImageUploading, setImgsToPreview }) => {
           multiple
           className="input-file"
           onChange={(e) => chargingImg(e.target.files)}
+          // onChange={(e) => console.log(e.target.files[0])}
         />
       </div>
       <ButtonForm text={"Envoyer"} />

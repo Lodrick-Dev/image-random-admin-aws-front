@@ -21,7 +21,11 @@ const Home = () => {
             text={"Register"}
           />
         </div>
-        {chooseForm ? <Connexion /> : <Register />}
+        {chooseForm ? (
+          <Connexion />
+        ) : (
+          <Register chooseForm={chooseForm} setChooseForm={setChooseForm} />
+        )}
       </div>
     </StyleHome>
   );

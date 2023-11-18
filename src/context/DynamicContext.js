@@ -8,9 +8,20 @@ export const DynamicContextProvider = ({ children }) => {
   const [pop, setPop] = useState(false);
   const [idUser, setIdUser] = useState(null);
   const [user, setUser] = useState(null);
+  const [notif, setNotif] = useState("");
   return (
     <DynamicContext.Provider
-      value={{ navigation, pop, setPop, idUser, setIdUser, user, setUser }}
+      value={{
+        navigation,
+        pop,
+        setPop,
+        idUser,
+        setIdUser,
+        user,
+        setUser,
+        notif,
+        setNotif,
+      }}
     >
       {children}
     </DynamicContext.Provider>
