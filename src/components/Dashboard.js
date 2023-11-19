@@ -52,7 +52,7 @@ const StyledDashboard = styled.div`
   align-items: center;
   /* height: 170vh; */
   h1 {
-    position: absolute;
+    position: fixed;
     left: 0px;
     bottom: 0px;
     width: 100%;
