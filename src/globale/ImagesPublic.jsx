@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Bouton from "./Bouton";
 import axios from "axios";
+import { Dynamic } from "../context/DynamicContext";
 
 const ImagesPublic = () => {
   const [imgSrc, setImgSrc] = useState("");
+  const { token } = Dynamic();
   const callNewImage = async () => {
     // alert("new image call");
+    console.log(token);
     try {
       await axios({
         method: "get",

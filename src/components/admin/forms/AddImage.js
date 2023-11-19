@@ -4,6 +4,7 @@ import ButtonForm from "../../../globale/ButtonForm";
 import { FaDownload } from "react-icons/fa";
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
+import { Dynamic } from "../../../context/DynamicContext";
 
 const AddImage = ({
   imageUploading,
@@ -12,21 +13,28 @@ const AddImage = ({
   imgsToPreview,
 }) => {
   const uploadingimgs = useRef();
+  const { setNotif, token } = Dynamic();
   const handleAddImage = async (e) => {
     e.preventDefault();
-    console.log(setImgsToPreview);
+    // console.log(setImgsToPreview);
+    // console.log(imageUploading[0]);
     // if (imageUploading.length < 0) return alert("Aucune image selectionnée");
-
+    // console.log(token);
+    // const data = new FormData();
+    // data.append("imageaws", imageUploading[0]);
+    // data.append("token", token);
     const data = new FormData();
     data.append("imageaws", imageUploading[0]);
+    data.append("token", token);
     try {
       await axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}aws/upload/image`,
+        url: `${process.env.REACT_APP_API_URL}aws/admin/upload/image`,
         withCredentials: true,
         data,
       }).then((res) => {
-        console.log(res);
+        // console.log(res);
+        setNotif(res.data.message);
       });
     } catch (error) {
       console.log(error);
@@ -39,13 +47,13 @@ const AddImage = ({
   };
   const chargingImg = (files) => {
     setImageUploading(files);
-    console.log(files);
+    // console.log(files);
     //👇converti en array pour la boucle
     const lesFilesInArray = Array.from(files);
-    console.log(lesFilesInArray);
+    // console.log(lesFilesInArray);
 
     for (let i = 0; i < lesFilesInArray.length; i++) {
-      console.log(lesFilesInArray[i]);
+      // console.log(lesFilesInArray[i]);
       Resizer.imageFileResizer(
         lesFilesInArray[i],
         1080,
@@ -64,6 +72,7 @@ const AddImage = ({
   const cancelCharging = () => {
     setImageUploading([]);
     setImgsToPreview([]);
+    return;
   };
   return (
     <StyledAddImage onSubmit={(e) => handleAddImage(e)}>

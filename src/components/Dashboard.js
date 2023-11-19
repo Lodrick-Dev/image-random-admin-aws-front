@@ -4,17 +4,22 @@ import PreviewImages from "../globale/PreviewImages";
 import AddImage from "./admin/forms/AddImage";
 import ImagesPublic from "../globale/ImagesPublic";
 import { FaHome } from "react-icons/fa";
-import { Dynamic } from "../context/DynamicContext";
 import ListImages from "./admin/ListImages";
+import { signOut } from "firebase/auth";
+import { auth } from "../auth/firebase";
+import Listusers from "./admin/Listusers";
 
 const Dashboard = () => {
   const [imageUploading, setImageUploading] = useState([]);
   const [imgsToPreview, setImgsToPreview] = useState([]);
-  const { setIdUser } = Dynamic();
 
   const deconnexion = () => {
     if (window.confirm("Cette action vous déconnecte")) {
-      setIdUser(null);
+      try {
+        signOut(auth);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (
@@ -32,6 +37,7 @@ const Dashboard = () => {
       />
       <ImagesPublic />
       <ListImages />
+      <Listusers />
     </StyledDashboard>
   );
 };

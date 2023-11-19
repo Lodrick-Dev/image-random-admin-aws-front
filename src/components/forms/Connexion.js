@@ -2,24 +2,44 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ButtonForm from "../../globale/ButtonForm";
 import { Dynamic } from "../../context/DynamicContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../auth/firebase";
 
 const Connexion = () => {
-  const { navigation, setIdUser, setNotif } = Dynamic();
   const [mdpForget, setMdpForget] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setIdUser, setNotif, setUser, setToken } = Dynamic();
   const handleConnexion = async (e) => {
     e.preventDefault();
     if (!email || !password)
       return setNotif("Erreur : Bro les champs sont obligatoire");
-    alert(`Ton email ${email} et ton password ${password}`);
+    // alert(`Ton email ${email} et ton password ${password}`);
 
     //firebase
+    try {
+      await signInWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          // console.log(userCredential);
+          const user = userCredential.user;
+          setUser(user);
+          setIdUser(user.uid);
+          user.getIdToken().then((res) => {
+            // console.log(res);
+            setToken(res);
+          });
+
+          setNotif("Connexion");
+        }
+      );
+    } catch (error) {
+      console.log(error.code);
+      if (error.code.includes("invalid"))
+        return setNotif("Erreur: Mot de passe ou email incorrect");
+      console.log(error.message);
+    }
     return;
-    // return setNotif(" Lol tu dois te connecté bro");
-    // setIdUser("dbbbj");
-    navigation("/dashboard");
   };
 
   const handlePasswordForget = async (e) => {

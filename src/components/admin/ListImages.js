@@ -1,19 +1,40 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Dynamic } from "../../context/DynamicContext";
 
 const ListImages = () => {
   const [imagesLists, setImagesLists] = useState([]);
+  const { setNotif, token } = Dynamic();
+
+  const deleteImg = async (name) => {
+    if (!name) return setNotif("Erreur : Aucune image sélectionnée");
+    if (window.confirm(`Voulez-vous vraiment supprimer ${name} ?`)) {
+      try {
+        await axios({
+          method: "delete",
+          url: `${process.env.REACT_APP_API_URL}aws/admin/delete/image`,
+          withCredentials: true,
+          data: { token, name },
+        }).then((res) => {
+          //   console.log(res);
+          setNotif(res.data.message);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   useEffect(() => {
     const getAll = async () => {
       try {
         await axios({
           method: "get",
-          url: `${process.env.REACT_APP_API_URL}aws/all/images`,
+          url: `${process.env.REACT_APP_API_URL}aws/admin/all/images`,
           withCredentials: true,
         }).then((res) => {
-          console.log(res);
+          //   console.log(res);
           setImagesLists(res.data.images);
         });
       } catch (error) {
@@ -30,7 +51,7 @@ const ListImages = () => {
       <ul>
         {imagesLists &&
           imagesLists.map((img, index) => (
-            <li key={index} onClick={() => alert(img.key)}>
+            <li key={index} onClick={() => deleteImg(img.key)}>
               <img src={img.imageUrl} alt={img.key} />
             </li>
           ))}

@@ -5,12 +5,12 @@ import { Dynamic } from "../../context/DynamicContext";
 import axios from "axios";
 
 const Register = ({ setChooseForm, chooseForm }) => {
-  const { setNotif } = Dynamic();
   const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [code, setCode] = useState("");
+  const { setNotif } = Dynamic();
   const handleRegsiter = async (e) => {
     e.preventDefault();
     if (!email || !password || !confirmation || !code)
@@ -29,7 +29,7 @@ const Register = ({ setChooseForm, chooseForm }) => {
           code,
         },
       }).then((res) => {
-        console.log(res);
+        // console.log(res);
         setNotif(res.data.message);
         setChooseForm(!chooseForm);
       });

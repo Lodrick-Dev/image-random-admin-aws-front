@@ -6,6 +6,7 @@ import Register from "./forms/Register";
 
 const Home = () => {
   const [chooseForm, setChooseForm] = useState(true);
+
   return (
     <StyleHome>
       <div>
