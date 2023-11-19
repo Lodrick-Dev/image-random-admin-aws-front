@@ -4,6 +4,7 @@ import ButtonForm from "../../globale/ButtonForm";
 import { Dynamic } from "../../context/DynamicContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../auth/firebase";
+import axios from "axios";
 
 const Connexion = () => {
   const [mdpForget, setMdpForget] = useState(false);
@@ -46,7 +47,26 @@ const Connexion = () => {
 
   const handlePasswordForget = async (e) => {
     e.preventDefault();
-    alert("mot de passe oublié");
+    if (!email) return setNotif("Erreur bro : Email est obligatoire");
+
+    setSpin(true);
+
+    try {
+      await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}user/auth/init/password`,
+        withCredentials: true,
+        data: {
+          email,
+        },
+      }).then((res) => {
+        setSpin(false);
+        setNotif(res.data.message);
+      });
+    } catch (error) {
+      console.log(error);
+      setSpin(false);
+    }
   };
 
   //rendu

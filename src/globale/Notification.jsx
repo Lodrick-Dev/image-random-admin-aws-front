@@ -23,6 +23,7 @@ const Notification = () => {
 export default Notification;
 const StyledNotification = styled.div`
   position: fixed;
+  z-index: 50;
   bottom: 10px;
   right: 10px;
   /* background: #7e7a7a; */
