@@ -12,8 +12,10 @@ export const DynamicContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [notif, setNotif] = useState("");
   const [token, setToken] = useState("");
+  const [spin, setSpin] = useState(false);
   useEffect(() => {
     const spyActivities = async () => {
+      setSpin(true);
       onAuthStateChanged(auth, (user) => {
         if (user) {
           //connected
@@ -25,11 +27,13 @@ export const DynamicContextProvider = ({ children }) => {
             user.getIdToken().then((res) => {
               // console.log(res);
               setToken(res);
+              setSpin(false);
             });
           }
           navigation("/dashboard");
           return;
         } else {
+          setSpin(false);
           signOut(auth);
           setIdUser(null);
           setUser(null);
@@ -55,6 +59,8 @@ export const DynamicContextProvider = ({ children }) => {
         setNotif,
         token,
         setToken,
+        spin,
+        setSpin,
       }}
     >
       {children}

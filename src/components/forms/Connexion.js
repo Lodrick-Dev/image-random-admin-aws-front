@@ -10,9 +10,10 @@ const Connexion = () => {
   const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setIdUser, setNotif, setUser, setToken } = Dynamic();
+  const { setIdUser, setNotif, setUser, setToken, setSpin } = Dynamic();
   const handleConnexion = async (e) => {
     e.preventDefault();
+    setSpin(true);
     if (!email || !password)
       return setNotif("Erreur : Bro les champs sont obligatoire");
     // alert(`Ton email ${email} et ton password ${password}`);
@@ -28,6 +29,7 @@ const Connexion = () => {
           user.getIdToken().then((res) => {
             // console.log(res);
             setToken(res);
+            setSpin(false);
           });
 
           setNotif("Connexion");
@@ -35,8 +37,8 @@ const Connexion = () => {
       );
     } catch (error) {
       console.log(error.code);
-      if (error.code.includes("invalid"))
-        return setNotif("Erreur: Mot de passe ou email incorrect");
+      if (error.code.includes("invalid")) setSpin(false);
+      return setNotif("Erreur: Mot de passe ou email incorrect");
       console.log(error.message);
     }
     return;

@@ -5,9 +5,10 @@ import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./private/PrivateRoute";
 import Notification from "./globale/Notification";
 import { Dynamic } from "./context/DynamicContext";
+import Spin from "./globale/Spin";
 
 function App() {
-  const { notif } = Dynamic();
+  const { notif, spin } = Dynamic();
   return (
     <StyledApp className="App">
       <Routes>
@@ -22,6 +23,7 @@ function App() {
         />
       </Routes>
       {notif && <Notification />}
+      {spin ? <Spin /> : undefined}
     </StyledApp>
   );
 }
