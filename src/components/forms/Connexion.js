@@ -106,4 +106,13 @@ const StyledConnexion = styled.form`
     color: ${({ $css }) => ($css ? "red" : "white")};
     cursor: pointer;
   }
+
+  //responsive
+  //884px = 768px
+  @media screen and (max-width: 884px) {
+    width: 75%;
+  }
+  @media screen and (max-width: 428px) {
+    width: 100%;
+  }
 `;

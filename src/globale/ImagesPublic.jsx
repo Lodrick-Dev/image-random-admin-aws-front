@@ -47,9 +47,18 @@ const StyledImagesPublic = styled.div`
   align-items: center;
   img {
     width: 50%;
-    /* padding: 10px; */
     background: #767676;
     box-shadow: 0px 3px 5px 1px #767676;
     border-radius: 10px;
+  }
+  //responsive
+  //884px = 768px
+  @media screen and (max-width: 884px) {
+    width: 70%;
+  }
+  //responsive
+  //428px iphone 13 pro max
+  @media screen and (max-width: 428px) {
+    width: 100%;
   }
 `;

@@ -50,18 +50,24 @@ const StyledDashboard = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 170vh;
+  /* height: 170vh; */
   h1 {
     position: absolute;
-    left: 10px;
-    top: 10px;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    background: #404040;
+    color: white;
+    padding: 5px;
+    font-size: 1.1em;
   }
   .go-home-deconnect {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    bottom: 5px;
+    right: 5px;
     font-size: 2.3em;
     color: yellow;
     cursor: pointer;
+    z-index: 20;
   }
 `;

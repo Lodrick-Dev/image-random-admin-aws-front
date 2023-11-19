@@ -60,4 +60,9 @@ const StyleHome = styled.div`
     display: flex;
     flex-direction: row;
   }
+  @media screen and (max-width: 428px) {
+    div {
+      width: 80%;
+    }
+  }
 `;

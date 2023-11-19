@@ -87,4 +87,24 @@ const StyledPreviewImages = styled.div`
   span {
     color: white;
   }
+
+  //responsive
+  //884px = 768px
+  @media screen and (max-width: 884px) {
+    width: 90%;
+  }
+
+  //responsive
+  //428px iphone 13 pro max
+  @media screen and (max-width: 428px) {
+    width: 100%;
+    margin: 70px 0px;
+    ul {
+      width: 95%;
+    }
+    ul > li > img,
+    img {
+      width: 80%;
+    }
+  }
 `;

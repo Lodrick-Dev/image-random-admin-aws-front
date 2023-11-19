@@ -85,4 +85,10 @@ const StyledListImages = styled.div`
     display: block;
     width: 100%;
   }
+
+  //responsive
+  //428px iphone 13 pro max
+  @media screen and (max-width: 428px) {
+    width: 100%;
+  }
 `;

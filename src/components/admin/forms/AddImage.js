@@ -122,4 +122,9 @@ const StyledAddImage = styled.form`
     cursor: pointer;
     color: red;
   }
+  //responsive
+  //375px iphone X
+  @media screen and (max-width: 376px) {
+    margin-top: 10px;
+  }
 `;
