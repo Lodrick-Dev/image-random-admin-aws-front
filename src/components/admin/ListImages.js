@@ -5,7 +5,7 @@ import { Dynamic } from "../../context/DynamicContext";
 
 const ListImages = () => {
   const [imagesLists, setImagesLists] = useState([]);
-  const { setNotif, token } = Dynamic();
+  const { setNotif, token, callImgs, setCallImgs } = Dynamic();
 
   const deleteImg = async (name) => {
     if (!name) return setNotif("Erreur : Aucune image sélectionnée");
@@ -19,6 +19,7 @@ const ListImages = () => {
         }).then((res) => {
           //   console.log(res);
           setNotif(res.data.message);
+          setCallImgs(!callImgs);
         });
       } catch (error) {
         console.log(error);
@@ -43,7 +44,7 @@ const ListImages = () => {
     };
 
     getAll();
-  }, []);
+  }, [callImgs]);
 
   return (
     <StyledListImages>

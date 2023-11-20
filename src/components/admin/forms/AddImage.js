@@ -13,7 +13,7 @@ const AddImage = ({
   imgsToPreview,
 }) => {
   const uploadingimgs = useRef();
-  const { setNotif, token } = Dynamic();
+  const { setNotif, token, callImgs, setCallImgs } = Dynamic();
   const handleAddImage = async (e) => {
     e.preventDefault();
     // console.log(setImgsToPreview);
@@ -35,6 +35,9 @@ const AddImage = ({
       }).then((res) => {
         // console.log(res);
         setNotif(res.data.message);
+        setCallImgs(!callImgs);
+        setImageUploading([]);
+        setImgsToPreview([]);
       });
     } catch (error) {
       console.log(error);
