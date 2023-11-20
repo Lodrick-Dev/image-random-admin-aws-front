@@ -42,7 +42,7 @@ export const DynamicContextProvider = ({ children }) => {
         }
       });
     };
-    return () => spyActivities(); //nettoyer l'effet quand le composant est démonté
+    spyActivities();
   }, []);
 
   return (
