@@ -72,8 +72,11 @@ const Listusers = () => {
 export default Listusers;
 
 const StyledListusers = styled.div`
-  h3 {
-    margin: 10px;
+  height: 20vh;
+  border-bottom: solid 1px pink;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0px;
   }
   ul > li {
     cursor: pointer;
