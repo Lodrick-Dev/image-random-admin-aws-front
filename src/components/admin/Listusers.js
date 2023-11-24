@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const Listusers = () => {
   const [listUsers, setListUsers] = useState([]);
+  const [callUsersAgain, setCallUsersAgain] = useState(false);
   const { token, setNotif, notif } = Dynamic();
 
   const deleteUsers = async (id, name, email) => {
@@ -26,7 +27,8 @@ const Listusers = () => {
           },
         }).then((res) => {
           console.log(res);
-          setNotif(res.data.message);
+          setCallUsersAgain(!callUsersAgain);
+          return setNotif(res.data.message);
         });
       } catch (error) {
         console.log(error);
@@ -50,7 +52,7 @@ const Listusers = () => {
       }
     };
     getAllusers();
-  }, []);
+  }, [callUsersAgain]);
 
   return (
     <StyledListusers>
