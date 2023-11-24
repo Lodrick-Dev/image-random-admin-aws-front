@@ -9,14 +9,14 @@ const ImagesPublic = () => {
   const { token } = Dynamic();
   const callNewImage = async () => {
     // alert("new image call");
-    console.log(token);
+    // console.log(token);
     try {
       await axios({
         method: "get",
         url: `${process.env.REACT_APP_API_URL}aws/random/image`,
         withCredentials: true,
       }).then((res) => {
-        console.log(res);
+        // console.log(res);
 
         setImgSrc(res.data.image);
       });
