@@ -7,7 +7,7 @@ const Listusers = () => {
   const [listUsers, setListUsers] = useState([]);
   const { token, setNotif, notif } = Dynamic();
 
-  const deleteUsers = async (id, name) => {
+  const deleteUsers = async (id, name, email) => {
     if (!id) return setNotif("Erreur bro : On a besoin d'un Id");
     if (
       window.confirm(
@@ -22,6 +22,7 @@ const Listusers = () => {
           data: {
             token,
             id,
+            email,
           },
         }).then((res) => {
           console.log(res);
@@ -41,7 +42,7 @@ const Listusers = () => {
           url: `${process.env.REACT_APP_API_URL}user/all/?token=${token}`,
           withCredentials: true,
         }).then((res) => {
-          //   console.log(res);
+          // console.log(res);
           setListUsers(res.data.users);
         });
       } catch (error) {
@@ -59,7 +60,9 @@ const Listusers = () => {
           listUsers.map((user) => (
             <li
               key={user.uid}
-              onClick={() => deleteUsers(user.uid, user.displayName)}
+              onClick={() =>
+                deleteUsers(user.uid, user.displayName, user.email)
+              }
             >
               {user.email}
             </li>
