@@ -8,10 +8,13 @@ import ListImages from "./admin/ListImages";
 import { signOut } from "firebase/auth";
 import { auth } from "../auth/firebase";
 import Listusers from "./admin/Listusers";
+import { Dynamic } from "../context/DynamicContext";
+import EmailVerified from "../globale/EmailVerified";
 
 const Dashboard = () => {
   const [imageUploading, setImageUploading] = useState([]);
   const [imgsToPreview, setImgsToPreview] = useState([]);
+  const { user } = Dynamic();
 
   const deconnexion = () => {
     if (window.confirm("Cette action vous déconnecte")) {
@@ -38,6 +41,7 @@ const Dashboard = () => {
       <ImagesPublic />
       <ListImages />
       <Listusers />
+      {!user.emailVerified && <EmailVerified />}
     </StyledDashboard>
   );
 };

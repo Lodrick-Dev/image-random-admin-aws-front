@@ -35,7 +35,7 @@ const ListImages = () => {
           url: `${process.env.REACT_APP_API_URL}aws/admin/all/images`,
           withCredentials: true,
         }).then((res) => {
-          //   console.log(res);
+          // console.log(res);
           setImagesLists(res.data.images);
         });
       } catch (error) {
