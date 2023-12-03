@@ -7,15 +7,16 @@ const ListImages = () => {
   const [imagesLists, setImagesLists] = useState([]);
   const { setNotif, token, callImgs, setCallImgs } = Dynamic();
 
-  const deleteImg = async (name) => {
-    if (!name) return setNotif("Erreur : Aucune image sélectionnée");
-    if (window.confirm(`Voulez-vous vraiment supprimer ${name} ?`)) {
+  const deleteImg = async (namemongo, nameaws) => {
+    if (!namemongo || !nameaws)
+      return setNotif("Erreur : Aucune image sélectionnée");
+    if (window.confirm(`Voulez-vous vraiment supprimer ${nameaws} ?`)) {
       try {
         await axios({
           method: "delete",
           url: `${process.env.REACT_APP_API_URL}aws/admin/delete/image`,
           withCredentials: true,
-          data: { token, name },
+          data: { token, namemongo, nameaws },
         }).then((res) => {
           //   console.log(res);
           setNotif(res.data.message);
@@ -52,7 +53,7 @@ const ListImages = () => {
       <ul>
         {imagesLists &&
           imagesLists.map((img, index) => (
-            <li key={index} onClick={() => deleteImg(img.key)}>
+            <li key={index} onClick={() => deleteImg(img.imageUrl, img.key)}>
               <img src={img.imageUrl} alt={img.key} />
             </li>
           ))}
