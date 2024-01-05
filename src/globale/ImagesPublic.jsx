@@ -27,7 +27,10 @@ const ImagesPublic = () => {
   return (
     <StyledImagesPublic>
       <img src={imgSrc} alt={imgSrc} />
-      <Bouton text={"Nouvelle Image"} actionClick={() => callNewImage()} />
+      <div className="box-img-btn">
+        <Bouton text={"Nouvelle Image"} actionClick={() => callNewImage()} />
+        {imgSrc && <Bouton text={"Cacher"} actionClick={() => setImgSrc("")} />}
+      </div>
     </StyledImagesPublic>
   );
 };
@@ -45,6 +48,13 @@ const StyledImagesPublic = styled.div`
   flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
+  .box-img-btn {
+    /* background: blue; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
   img {
     width: 50%;
     background: #767676;

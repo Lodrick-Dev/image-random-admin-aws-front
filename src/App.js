@@ -6,11 +6,13 @@ import PrivateRoute from "./private/PrivateRoute";
 import Notification from "./globale/Notification";
 import { Dynamic } from "./context/DynamicContext";
 import Spin from "./globale/Spin";
+import Pop from "./globale/Pop";
 
 function App() {
-  const { notif, spin } = Dynamic();
+  const { notif, spin, imgSelect } = Dynamic();
   return (
     <StyledApp className="App">
+      {imgSelect.length > 0 && <Pop />}
       <Routes>
         <Route path="*" element={<Home />} />
         <Route
@@ -32,5 +34,5 @@ export default App;
 
 const StyledApp = styled.div`
   background: #404040;
-  height: 110vh;
+  /* height: 110vh; */
 `;

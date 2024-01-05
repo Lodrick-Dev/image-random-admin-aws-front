@@ -10,10 +10,12 @@ import { auth } from "../auth/firebase";
 import Listusers from "./admin/Listusers";
 import { Dynamic } from "../context/DynamicContext";
 import EmailVerified from "../globale/EmailVerified";
+import Bouton from "../globale/Bouton";
 
 const Dashboard = () => {
   const [imageUploading, setImageUploading] = useState([]);
   const [imgsToPreview, setImgsToPreview] = useState([]);
+  const [componentImagesList, setComponentImageList] = useState(false);
   const { user } = Dynamic();
 
   const deconnexion = () => {
@@ -39,8 +41,11 @@ const Dashboard = () => {
         imgsToPreview={imgsToPreview}
       />
       <ImagesPublic />
-      <ListImages />
-      <Listusers />
+      <Bouton
+        text={componentImagesList ? "Voir les images" : "Voir les utilisateur"}
+        actionClick={() => setComponentImageList(!componentImagesList)}
+      />
+      {componentImagesList ? <Listusers /> : <ListImages />}
       {!user.emailVerified && <EmailVerified />}
     </StyledDashboard>
   );
@@ -54,7 +59,8 @@ const StyledDashboard = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  /* height: 170vh; */
+  /* height: 100%; */
+  padding: 10px;
   h1 {
     position: fixed;
     left: 0px;

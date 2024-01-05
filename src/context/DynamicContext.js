@@ -14,6 +14,8 @@ export const DynamicContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [spin, setSpin] = useState(false);
   const [callImgs, setCallImgs] = useState(false);
+  const [userSubscribe, setUserSubscribe] = useState([]);
+  const [imgSelect, setImgSelect] = useState([]);
   useEffect(() => {
     const spyActivities = async () => {
       setSpin(true);
@@ -64,6 +66,10 @@ export const DynamicContextProvider = ({ children }) => {
         setSpin,
         callImgs,
         setCallImgs,
+        imgSelect,
+        setImgSelect,
+        userSubscribe,
+        setUserSubscribe,
       }}
     >
       {children}
