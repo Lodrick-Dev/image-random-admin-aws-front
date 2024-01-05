@@ -6,13 +6,15 @@ import PrivateRoute from "./private/PrivateRoute";
 import Notification from "./globale/Notification";
 import { Dynamic } from "./context/DynamicContext";
 import Spin from "./globale/Spin";
-import Pop from "./globale/Pop";
+import PopImageSelect from "./globale/PopImageSelect";
+import PopUserSelect from "./globale/PopUserSelect";
 
 function App() {
-  const { notif, spin, imgSelect } = Dynamic();
+  const { notif, spin, imgSelect, userSelect } = Dynamic();
   return (
     <StyledApp className="App">
-      {imgSelect.length > 0 && <Pop />}
+      {imgSelect.length > 0 && <PopImageSelect />}
+      {userSelect.length > 0 && <PopUserSelect />}
       <Routes>
         <Route path="*" element={<Home />} />
         <Route

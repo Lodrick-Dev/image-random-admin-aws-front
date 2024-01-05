@@ -3,20 +3,20 @@ import styled from "styled-components";
 import { Dynamic } from "../context/DynamicContext";
 import ImageSelect from "../components/admin/ImageSelect/Index";
 
-const Pop = () => {
+const PopImageSelect = () => {
   const { imgSelect, setImgSelect } = Dynamic();
   return (
-    <StyledPop onClick={() => setImgSelect([])}>
+    <StyledPopImageSelect onClick={() => setImgSelect([])}>
       {imgSelect.map((item) => (
         <ImageSelect key={item._id} item={item} />
       ))}
-    </StyledPop>
+    </StyledPopImageSelect>
   );
 };
 
-export default Pop;
+export default PopImageSelect;
 
-const StyledPop = styled.div`
+const StyledPopImageSelect = styled.div`
   background: #4c4b4b75;
   backdrop-filter: blur(3px);
   position: fixed;
