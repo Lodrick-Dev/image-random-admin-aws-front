@@ -70,6 +70,9 @@ const StyledImageSelect = styled.div`
     display: flex;
     flex-direction: column;
   }
+  div > span {
+    margin: 10px 0px;
+  }
   img {
     width: 50%;
     /* display: block; */
@@ -84,5 +87,22 @@ const StyledImageSelect = styled.div`
     background: white;
     border-radius: 50px;
     cursor: pointer;
+  }
+
+  //responsive
+  //884px = 768px
+  @media screen and (max-width: 884px) {
+    width: 70%;
+    img {
+      width: 65%;
+    }
+  }
+  //responsive
+  //428px iphone 13 pro max
+  @media screen and (max-width: 428px) {
+    width: 100%;
+    img {
+      width: 65%;
+    }
   }
 `;

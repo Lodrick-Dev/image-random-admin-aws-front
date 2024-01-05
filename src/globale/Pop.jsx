@@ -19,7 +19,7 @@ export default Pop;
 const StyledPop = styled.div`
   background: #4c4b4b75;
   backdrop-filter: blur(3px);
-  position: absolute;
+  position: fixed;
   z-index: 50;
   height: 100vh;
   width: 100%;
