@@ -3,12 +3,35 @@ import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
 import { COLORS } from "../../../utils/Colors/Index";
 import { Dynamic } from "../../../context/DynamicContext";
+import axios from "axios";
 
 const ImageSelect = ({ item }) => {
-  const { setImgSelect, setNotif } = Dynamic();
-  const deleteImgCurrent = () => {
-    if (item._id) return setNotif("Erreur: id introuvable");
+  const { setImgSelect, token, setNotif, setSpin, callImgs, setCallImgs } =
+    Dynamic();
+  const deleteImgCurrent = async () => {
+    if (!item._id) return setNotif("Erreur: id introuvable");
     if (window.confirm(`'OK' pour supprimer l'image ? `)) {
+      try {
+        setSpin(true);
+        const res = await axios({
+          method: "delete",
+          url: `${process.env.REACT_APP_API_URL}aws/admin/delete/image`,
+          withCredentials: true,
+          data: {
+            token,
+            id: item._id,
+          },
+        });
+        // console.log(res);
+        if (res.data.message) {
+          setNotif(res.data.message);
+          setCallImgs(!callImgs);
+        }
+        setSpin(false);
+      } catch (error) {
+        console.log(error);
+        setSpin(false);
+      }
       setImgSelect([]);
     }
   };
@@ -16,6 +39,7 @@ const ImageSelect = ({ item }) => {
     <StyledImageSelect onClick={(e) => e.stopPropagation()}>
       <div>
         <span>Id mongo : {item._id}</span>
+        <span>Id aws : {item.nameimage}</span>
         <span>
           Reactions : {item.reactionsusers && item.reactionsusers.length}
         </span>
