@@ -35,6 +35,7 @@ function App() {
 export default App;
 
 const StyledApp = styled.div`
-  background: #404040;
-  /* height: 110vh; */
+  /* background: #404040; */
+  /* background: red; */
+  height: 100vh;
 `;

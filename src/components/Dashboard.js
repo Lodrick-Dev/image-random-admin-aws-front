@@ -60,7 +60,7 @@ const StyledDashboard = styled.div`
   justify-content: space-evenly;
   align-items: center;
   /* height: 100%; */
-  padding: 10px;
+  padding: 20px 10px;
   h1 {
     position: fixed;
     left: 0px;

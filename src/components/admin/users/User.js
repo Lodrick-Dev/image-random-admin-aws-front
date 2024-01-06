@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 
 const User = ({ user, callUsersAgain, setCallUsersAgain }) => {
   const [lastConnect, setLastConnect] = useState("");
-  const { token, setNotif, setUserSelect } = Dynamic();
+  const { token, setNotif, setUserSelect, setSpin } = Dynamic();
 
   const toDateLastConnect = () => {
     // Analyser la chaîne de date
@@ -25,7 +25,7 @@ const User = ({ user, callUsersAgain, setCallUsersAgain }) => {
     setLastConnect(` ${day}/${month}/${year} à ${hours}h${minutes}`);
   };
 
-  const selectUser = async (email) => {
+  const selectUser = async (email, id) => {
     if (!email) return setNotif("Erreur: Un email est obligatoire");
     try {
       const res = await axios({
@@ -39,13 +39,47 @@ const User = ({ user, callUsersAgain, setCallUsersAgain }) => {
           email: email,
         },
       });
-      console.log(res.data);
-      setUserSelect(res.data);
+      // console.log(res.data);
+      if (res.data.message) return setNotif(res.data.message);
+      let data = res.data;
+      data.idfirebase = id;
+      // console.log(data);
+      setUserSelect(data);
     } catch (error) {
       console.log(error);
       setNotif(
         "Erreur : lors de la tentative de récupération de l'utilisateur"
       );
+    }
+  };
+
+  const deleteUser = async (e, id, email) => {
+    e.stopPropagation();
+    // console.log(id);
+    if (!id) return setNotif("Erreur, id introuvable");
+
+    if (window.confirm("Voulez-vous vraiment supprimer ce membre ? ")) {
+      setSpin(true);
+      try {
+        const res = await axios({
+          method: "delete",
+          url: `${process.env.REACT_APP_API_URL}user/delete`,
+          withCredentials: true,
+          data: {
+            token,
+            id,
+            email,
+          },
+        });
+        // console.log(res);
+        if (res.data.message) setSpin(false);
+        setCallUsersAgain(!callUsersAgain);
+        return setNotif(res.data.message);
+      } catch (error) {
+        console.log(error);
+        setNotif("Erreur, lors de la requête");
+        setSpin(false);
+      }
     }
   };
   useEffect(() => {
@@ -54,7 +88,7 @@ const User = ({ user, callUsersAgain, setCallUsersAgain }) => {
 
   return (
     <StyledUser
-      onClick={() => selectUser(user.email)}
+      onClick={() => selectUser(user.email, user.uid)}
       $css={user.emailVerified}
     >
       <span>Pseudo : {user.displayName}</span>
@@ -62,7 +96,10 @@ const User = ({ user, callUsersAgain, setCallUsersAgain }) => {
         Email vérifié : {user.emailVerified ? "Oui" : "Non"}
       </span>
       <span> Dernière connexion : {lastConnect}</span>
-      <MdDelete className="icon-delete-user" onClick={() => alert("lol")} />
+      <MdDelete
+        className="icon-delete-user"
+        onClick={(e) => deleteUser(e, user.uid, user.email)}
+      />
     </StyledUser>
   );
 };
@@ -106,11 +143,23 @@ const StyledUser = styled.li`
   //428px iphone 13 pro max
   @media screen and (max-width: 428px) {
     width: 40%;
+    span {
+      font-size: 0.8em;
+    }
+    .icon-delete-user {
+      font-size: 1.2em;
+    }
   }
 
   //responsive
   //884px = 768px
   @media screen and (max-width: 884px) {
     width: 40%;
+    span {
+      font-size: 0.8em;
+    }
+    .icon-delete-user {
+      font-size: 1.2em;
+    }
   }
 `;

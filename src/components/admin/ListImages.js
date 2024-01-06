@@ -87,6 +87,12 @@ const StyledListImages = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     overflow-y: scroll;
+    background: grey;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  ul::-webkit-scrollbar {
+    width: 0px;
   }
   ul > li {
     width: 15%;

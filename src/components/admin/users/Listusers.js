@@ -29,7 +29,7 @@ const Listusers = () => {
 
   return (
     <StyledListusers>
-      <h3>Listes des utilisateurs inscrit</h3>
+      <h3>Membres total inscrit : {listUsers && listUsers.length}</h3>
       <ul>
         {listUsers &&
           listUsers.map((user) => (
@@ -48,17 +48,31 @@ const Listusers = () => {
 export default Listusers;
 
 const StyledListusers = styled.div`
-  /* height: 50vh; */
+  height: 100%;
   /* background: pink; */
   width: 70%;
   border-bottom: solid 1px pink;
   &::-webkit-scrollbar {
     width: 0px;
   }
+
+  h3 {
+    margin-bottom: 10px;
+  }
   ul {
     display: flex;
     flex-wrap: wrap;
+    /* background: pink; */
+    height: 80%;
     overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    background: grey;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  ul::-webkit-scrollbar {
+    width: 0px;
   }
 
   //responsive

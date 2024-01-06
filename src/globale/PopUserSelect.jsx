@@ -4,34 +4,7 @@ import { Dynamic } from "../context/DynamicContext";
 import styled from "styled-components";
 
 const PopUserSelect = () => {
-  const { setNotif, token, userSelect, setUserSelect } = Dynamic();
-  const deleteUsers = async (id, name, email) => {
-    if (!id) return setNotif("Erreur bro : On a besoin d'un Id");
-    if (
-      window.confirm(
-        `Bro tu es sur le point de supprimé cet utilisateur ${name}, "Ok" si tu sais ce que tu fais `
-      )
-    ) {
-      try {
-        await axios({
-          method: "delete",
-          url: `${process.env.REACT_APP_API_URL}user/delete`,
-          withCredentials: true,
-          data: {
-            token,
-            id,
-            email,
-          },
-        }).then((res) => {
-          console.log(res);
-          //   setCallUsersAgain(!callUsersAgain);
-          return setNotif(res.data.message);
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  const { userSelect, setUserSelect } = Dynamic();
   return (
     <StyledPopUserSelect onClick={() => setUserSelect([])}>
       <div onClick={(e) => e.stopPropagation()}>
