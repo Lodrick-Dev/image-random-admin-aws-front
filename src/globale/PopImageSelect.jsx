@@ -19,6 +19,7 @@ export default PopImageSelect;
 const StyledPopImageSelect = styled.div`
   background: #4c4b4b75;
   backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   position: fixed;
   z-index: 50;
   height: 100vh;

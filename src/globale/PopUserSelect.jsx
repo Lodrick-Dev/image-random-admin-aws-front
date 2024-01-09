@@ -33,6 +33,7 @@ const StyledPopUserSelect = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-backdrop-filter: blur(3px);
   div {
     border-radius: 10px;
     background: pink;

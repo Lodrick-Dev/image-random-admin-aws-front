@@ -13,9 +13,10 @@ const AddImage = ({
   imgsToPreview,
 }) => {
   const uploadingimgs = useRef();
-  const { setNotif, token, callImgs, setCallImgs } = Dynamic();
+  const { setNotif, token, callImgs, setCallImgs, setSpin } = Dynamic();
   const handleAddImage = async (e) => {
     e.preventDefault();
+    setSpin(true);
     // console.log(setImgsToPreview);
     // console.log(imageUploading[0]);
     // if (imageUploading.length < 0) return alert("Aucune image selectionnée");
@@ -34,12 +35,15 @@ const AddImage = ({
         data,
       }).then((res) => {
         // console.log(res);
+        setSpin(false);
         setNotif(res.data.message);
         setCallImgs(!callImgs);
         setImageUploading([]);
         setImgsToPreview([]);
       });
     } catch (error) {
+      setSpin(false);
+      setNotif("Erreur, lors de la tentative de l'envoi de l'image");
       console.log(error);
     }
   };
