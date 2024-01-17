@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Home from "./components/Home";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./private/PrivateRoute";
 import Notification from "./globale/Notification";
@@ -16,14 +16,7 @@ function App() {
       {imgSelect.length > 0 && <PopImageSelect />}
       {userSelect.length > 0 && <PopUserSelect />}
       <Routes>
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Home />} />
       </Routes>
       {notif && <Notification />}

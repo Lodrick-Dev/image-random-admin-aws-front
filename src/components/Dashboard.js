@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PreviewImages from "../globale/PreviewImages";
 import AddImage from "./admin/forms/AddImage";
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [imageUploading, setImageUploading] = useState([]);
   const [imgsToPreview, setImgsToPreview] = useState([]);
   const [componentImagesList, setComponentImageList] = useState(false);
-  const { user } = Dynamic();
+  const { user, token, navigation } = Dynamic();
 
   const deconnexion = () => {
     if (window.confirm("Cette action vous déconnecte")) {
@@ -27,6 +27,12 @@ const Dashboard = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (!token && !user) {
+      navigation("/");
+    }
+  }, [token]);
   return (
     <StyledDashboard>
       <FaHome className="go-home-deconnect" onClick={deconnexion} />
@@ -46,7 +52,7 @@ const Dashboard = () => {
         actionClick={() => setComponentImageList(!componentImagesList)}
       />
       {componentImagesList ? <Listusers /> : <ListImages />}
-      {!user.emailVerified && <EmailVerified />}
+      {user && !user.emailVerified && <EmailVerified />}
     </StyledDashboard>
   );
 };
