@@ -16,7 +16,6 @@ function App() {
       {imgSelect.length > 0 && <PopImageSelect />}
       {userSelect.length > 0 && <PopUserSelect />}
       <Routes>
-        <Route path="*" element={<Home />} />
         <Route
           path="/dashboard"
           element={
@@ -25,6 +24,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<Home />} />
       </Routes>
       {notif && <Notification />}
       {spin ? <Spin /> : undefined}
